@@ -28,7 +28,7 @@ class Status extends Enum
         return $this->attribute('color');
     }
 
-    protected function attributes(): array
+    protected static function attributes(): array
     {
         return [
             Attribute::to('WARNING')->add('color', 'yellow'),

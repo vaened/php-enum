@@ -13,11 +13,11 @@ abstract class Enum implements Enumerable
 {
     private string $value;
 
-    private array $attributes;
+    private static array $attributes = [];
 
     private static array $cache = [];
 
-    public function __construct(string $value)
+    final private function __construct(string $value)
     {
         if (! $this->isValid($value)) {
             throw new UnexpectedValueException("Value '$value' is not part of the enum " . static::class);
@@ -63,6 +63,24 @@ abstract class Enum implements Enumerable
         return (new ReflectionClass($classname))->getConstants();
     }
 
+    private static function getEnumAttributes(): array
+    {
+        return self::$attributes[static::class] ??= static::bindEnumAttributes();
+    }
+
+    private static function bindEnumAttributes(): array
+    {
+        return array_reduce(static::attributes(), function (array $acc, Attribute $attribute): array {
+            $acc[$attribute->getConstantName()] = $attribute->getAttributes();
+            return $acc;
+        }, []);
+    }
+
+    protected static function attributes(): array
+    {
+        return [];
+    }
+
     public function value(): string
     {
         return $this->value;
@@ -78,30 +96,11 @@ abstract class Enum implements Enumerable
         return $this->value() === $value;
     }
 
-    protected function attributes(): array
-    {
-        return [];
-    }
-
     protected function attribute(string $name): ?string
     {
-        $params = $this->getEnumAttributes();
-        return $params[$name] ?? null;
-    }
-
-    protected function getEnumAttributes(): array
-    {
-        return $this->attributes ??= $this->bindAttributes();
-    }
-
-    protected function bindAttributes(): array
-    {
-        $constant = array_reduce($this->attributes(), function (array $acc, Attribute $attribute): array {
-            $acc[$attribute->getConstantName()] = $attribute->getAttributes();
-            return $acc;
-        }, []);
-
-        return $constant[$this->key()] ?? [];
+        $constants = static::getEnumAttributes();
+        $attributes = $constants[$this->key()] ?? [];
+        return $attributes[$name] ?? null;
     }
 
     public static function __callStatic(string $name, array $arguments): self
@@ -109,7 +108,7 @@ abstract class Enum implements Enumerable
         $values = static::associates();
 
         if (isset($values[$name])) {
-            return new static($values[$name]);
+            return static::create($values[$name]);
         }
 
         throw new BadMethodCallException("No static method or enum constant '$name' in enum " . static::class);
