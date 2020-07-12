@@ -11,7 +11,7 @@ class AttributesTest extends TestCase
 {
     public function test_get_attribute(): void
     {
-        $this->assertEquals('yellow', Status::WARNING()->getColor());
-        $this->assertEquals('blue', Status::SUCCESS()->getColor());
+        $this->assertEquals('yellow', Status::WARNING()->getColor()->getName());
+        $this->assertEquals('blue', Status::SUCCESS()->getColor()->getName());
     }
 }

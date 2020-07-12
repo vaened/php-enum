@@ -96,7 +96,7 @@ abstract class Enum implements Enumerable
         return $this->value() === $value;
     }
 
-    protected function attribute(string $name): ?string
+    protected function attribute(string $name)
     {
         $constants = static::getEnumAttributes();
         $attributes = $constants[$this->key()] ?? [];

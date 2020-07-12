@@ -23,7 +23,7 @@ class Status extends Enum
 
     public const SUCCESS = 'Exito';
 
-    public function getColor(): string
+    public function getColor(): Color
     {
         return $this->attribute('color');
     }
@@ -31,8 +31,8 @@ class Status extends Enum
     protected static function attributes(): array
     {
         return [
-            Attribute::to('WARNING')->add('color', 'yellow'),
-            Attribute::to('SUCCESS')->add('color', 'blue'),
+            Attribute::to('WARNING')->add('color', new Color('yellow')),
+            Attribute::to('SUCCESS')->add('color', new Color('blue')),
         ];
     }
 }
