@@ -8,11 +8,11 @@ Friendly enumeration implementation.
 ```php
 $status = Status::WARNING();
 
-echo $status->key(); // WARNING
-echo $status->value(); // Advertencia
+$status->key(); // WARNING
+$status->value(); // Advertencia
 
 // custom attribute
-echo $status->getColor(); // yellow
+$status->getColor(); // yellow
 ```
 
 ## Installation
