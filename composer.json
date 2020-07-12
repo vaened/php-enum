@@ -1,6 +1,10 @@
 {
   "name": "vaened/php-enum",
   "description": "PHP enumeration support",
+  "keywords": [
+    "enum",
+    "enumeration"
+  ],
   "license": "MIT",
   "type": "library",
   "minimum-stability": "stable",
