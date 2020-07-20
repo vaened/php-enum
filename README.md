@@ -41,23 +41,7 @@ class Status extends Enum
     public const WARNING = 'Advertencia';
 
     public const SUCCESS = 'Exito';
-
-    // get a specific attribute.
-    public function getColor(): Color
-    {
-        return $this->attribute('color');
-    }
-
-    // add custom attributes.
-    protected static function attributes(): array
-    {
-        return [
-            Attribute::to('WARNING')->add('color', new Color('yellow')),
-            Attribute::to('SUCCESS')->add('color', new Color('blue')),
-        ];
-    }
 }
-
 ```
 
 ## Usage
