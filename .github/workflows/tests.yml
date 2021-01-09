@@ -27,5 +27,8 @@ jobs:
       - name: Setup Problem Matchers
         run: echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
 
+      - name: Install dependencies
+        uses: php-actions/composer@v5
+
       - name: Execute PHPUnit
         run: vendor/bin/phpunit
