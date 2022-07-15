@@ -9,7 +9,7 @@ interface Enumerable
 {
     public function key(): string;
 
-    public function value(): string;
+    public function value(): string|int|float|bool;
 
     public function equals(string $value): bool;
 }

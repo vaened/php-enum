@@ -13,13 +13,13 @@ use function array_reduce;
 
 abstract class Enum implements Enumerable, Stringable
 {
-    private string $value;
+    private string|int|float|bool $value;
 
     private static array $attributes = [];
 
     private static array $cache = [];
 
-    final private function __construct(string $value)
+    final private function __construct(string|int|float|bool $value)
     {
         if (! self::isValid($value)) {
             throw new UnexpectedValueException("Value '$value' is not part of the enum " . static::class);
@@ -28,7 +28,7 @@ abstract class Enum implements Enumerable, Stringable
         $this->value = $value;
     }
 
-    public static function create(string $value): static
+    public static function create(string|int|float|bool $value): static
     {
         return new static($value);
     }
@@ -44,14 +44,14 @@ abstract class Enum implements Enumerable, Stringable
         return static::create($values[$key]);
     }
 
-    public static function isValid(string $value): bool
+    public static function isValid(string|int|float|bool $value): bool
     {
         return in_array($value, static::associates(), true);
     }
 
     public static function values(): array
     {
-        return array_map(static fn(string $value) => static::create($value), static::associates());
+        return array_map(static fn(string|int|float|bool $value) => static::create($value), static::associates());
     }
 
     private static function associates(): array
@@ -83,7 +83,7 @@ abstract class Enum implements Enumerable, Stringable
         return [];
     }
 
-    public function value(): string
+    public function value(): string|int|float|bool
     {
         return $this->value;
     }
@@ -93,7 +93,7 @@ abstract class Enum implements Enumerable, Stringable
         return array_search($this->value, static::associates(), true);
     }
 
-    public function equals(string $value): bool
+    public function equals(string|int|float|bool $value): bool
     {
         return $this->value() === $value;
     }
