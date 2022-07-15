@@ -17,7 +17,7 @@ $status->getColor(); // yellow
 
 ## Installation
 
-PHP Enum requires PHP 7.4.
+PHP Enum requires PHP 8.
 
 To get the latest version, simply require the project using Composer:
 ```sh
@@ -32,7 +32,7 @@ To create an enumeration it is necessary to extend from [`Vaened\Enum\Enum`](htt
 <?php namespace App\Enums;
 
 use App\Color;
-use Vaened\Enum\Attribute;
+use Vaened\Enum\Attributor;
 use Vaened\Enum\Enum;
 
 class Status extends Enum
@@ -85,14 +85,14 @@ class Status extends Enum
 
 ### Advanced
 
-There may be specific cases where you need to add some additional attribute to the enumeration. To do this, you will need to override the protected static method **attributes** available in all `Enum `children, here you must define the attributes you will use for each enumeration.
+There may be specific cases where you need to add some additional attribute to the enumeration. To do this, you will need to override the protected static method **attributes** available in all `Enum` children, here you must define the attributes you will use for each enumeration.
 
-> Must use the [`Vaened\Enum\Attribute`](https://github.com/vaened/php-enum/blob/master/src/Attribute.php) class.
+> Must use the [`Vaened\Enum\Attributor`](https://github.com/vaened/php-enum/blob/master/src/Attributor.php) class.
 
 ```php 
-use Vaened\Enum\Attribute;
-
-Attribute::to('Constant name')->add('Attribute name', 'Attribute value'),
+Attributor::to('CONSTANT', [
+    'name' => 'value'
+]);
 ```
 
 To get any attribute, you can use the protected method **attribute** which gets the name of the attribute as parameter
@@ -100,7 +100,7 @@ To get any attribute, you can use the protected method **attribute** which gets 
 ```php
 class Status extends Enum
 {
-    public const SUCCESS = 'Exito';
+    public const SUCCESS = 'Éxito';
 
     public function getColor(): Color
     {
@@ -110,7 +110,9 @@ class Status extends Enum
     protected static function attributes(): array
     {
         return [
-            Attribute::to('SUCCESS')->add('color', new Color('blue')),
+            Attributor::to('SUCCESS', [
+                'color' => new Color('blue'),
+            ]),
         ];
     }
 }
