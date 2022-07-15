@@ -5,7 +5,7 @@
 
 namespace Vaened\Enum\Tests\Enumerables;
 
-use Vaened\Enum\Attribute;
+use Vaened\Enum\Attributor;
 use Vaened\Enum\Enum;
 
 /**
@@ -21,7 +21,7 @@ class Status extends Enum
 {
     public const WARNING = 'Advertencia';
 
-    public const SUCCESS = 'Exito';
+    public const SUCCESS = 'Éxito';
 
     public function getColor(): Color
     {
@@ -31,8 +31,12 @@ class Status extends Enum
     protected static function attributes(): array
     {
         return [
-            Attribute::to('WARNING')->add('color', new Color('yellow')),
-            Attribute::to('SUCCESS')->add('color', new Color('blue')),
+            Attributor::to('WARNING', [
+                'color' => new Color('yellow'),
+            ]),
+            Attributor::to('SUCCESS', [
+                'color' => new Color('blue'),
+            ]),
         ];
     }
 }

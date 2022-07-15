@@ -35,7 +35,7 @@ class ValidationsTest extends TestCase
     public function test_validate_enum_member_value(): void
     {
         $this->assertTrue(Status::isValid(Status::WARNING));
-        $this->assertTrue(Status::isValid('Exito'));
+        $this->assertTrue(Status::isValid('Éxito'));
         $this->assertFalse(Status::isValid('non-existent'));
     }
 }
