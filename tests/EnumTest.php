@@ -72,7 +72,7 @@ class EnumTest extends TestCase
                 'value' => 'Advertencia',
             ],
             'SUCCESS' => [
-                'value' => 'Exito',
+                'value' => 'Éxito',
             ],
         ];
     }
