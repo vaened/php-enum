@@ -9,6 +9,7 @@ use BadMethodCallException;
 use ReflectionClass;
 use Stringable;
 use UnexpectedValueException;
+
 use function array_reduce;
 
 abstract class Enum implements Enumerable, Stringable
@@ -19,10 +20,10 @@ abstract class Enum implements Enumerable, Stringable
 
     private static array $cache = [];
 
-    final private function __construct(string|int|float|bool $value)
+    protected function __construct(string|int|float|bool $value)
     {
-        if (! self::isValid($value)) {
-            throw new UnexpectedValueException("Value '$value' is not part of the enum " . static::class);
+        if (!self::isValid($value)) {
+            $this->throwErrorForInvalidValue($value);
         }
 
         $this->value = $value;
@@ -37,7 +38,7 @@ abstract class Enum implements Enumerable, Stringable
     {
         $values = static::associates();
 
-        if (! isset($values[$key])) {
+        if (!isset($values[$key])) {
             throw new UnexpectedValueException("Key '$key' is not part of the enum " . static::class);
         }
 
@@ -78,6 +79,11 @@ abstract class Enum implements Enumerable, Stringable
         }, []);
     }
 
+    protected function throwErrorForInvalidValue(string|int|float|bool $value): void
+    {
+        throw new UnexpectedValueException("Value '$value' is not part of the enum " . static::class);
+    }
+
     protected static function attributes(): array
     {
         return [];
@@ -100,7 +106,7 @@ abstract class Enum implements Enumerable, Stringable
 
     protected function attribute(string $name): mixed
     {
-        $constants = static::getEnumAttributes();
+        $constants  = static::getEnumAttributes();
         $attributes = $constants[$this->key()] ?? [];
         return $attributes[$name] ?? null;
     }
