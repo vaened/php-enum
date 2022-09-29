@@ -120,15 +120,16 @@ class Status extends Enum
 
 ## API
 
-| Method                                    | Description                                                  | Returns   |
-| ----------------------------------------- | ------------------------------------------------------------ | --------- |
-| **static::create(string $value)**         | Create an instance for the given value.                      | `Enum`    |
-| **static::instantiate(string $constant)** | Instantiate from constant name.                              | `Enum`    |
-| **static::isValid(string $value)**        | Check if the given value belongs to the enumaracion.         | `boolean` |
-| **static::values()**                      | Returns an `array` with all the enumeration values.          | `Enum[]`  |
-| **$instance->value()**                    | Returns the value of an enumeration.                         | `string`  |
-| **$instance->key()**                      | Returns the constant name of an enumeration.                 | `string`  |
+| Method                                    | Description                                                        | Returns   |
+|-------------------------------------------|--------------------------------------------------------------------| --------- |
+| **static::create(string $value)**         | Create an instance for the given value.                            | `Enum`    |
+| **static::instantiate(string $constant)** | Instantiate from constant name.                                    | `Enum`    |
+| **static::isValid(string $value)**        | Check if the given value belongs to the enumaracion.               | `boolean` |
+| **static::values()**                      | Returns an `array` with all the enumeration values.                | `Enum[]`  |
+| **$instance->value()**                    | Returns the value of an enumeration.                               | `string`  |
+| **$instance->key()**                      | Returns the constant name of an enumeration.                       | `string`  |
 | **$instance->equals(string $value)**      | Verify that the value of an enumeration is equal to a given value. | `boolean` |
+| **$instance->match(Enum $enum)**          | Verify that the value of an enumeration is equal to a given enum.  | `boolean` |
 
 ## More documentation
 
