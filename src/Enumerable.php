@@ -12,4 +12,6 @@ interface Enumerable
     public function value(): string|int|float|bool;
 
     public function equals(string $value): bool;
+
+    public function match(Enumerable $value): bool;
 }

@@ -104,6 +104,11 @@ abstract class Enum implements Enumerable, Stringable
         return $this->value() === $value;
     }
 
+    public function match(Enumerable $value): bool
+    {
+        return $this->value() === $value->value();
+    }
+
     protected function attribute(string $name): mixed
     {
         $constants  = static::getEnumAttributes();

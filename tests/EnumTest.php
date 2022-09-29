@@ -72,12 +72,20 @@ class EnumTest extends TestCase
         $this->assertFalse(Status::WARNING()->equals('non-existent'));
     }
 
+    public function test_compare_match_values(): void
+    {
+        $this->assertTrue(Code::UNAUTHORIZED()->match(Code::UNAUTHORIZED()));
+        $this->assertTrue(Status::WARNING()->equals(Status::WARNING()));
+        $this->assertFalse(Status::WARNING()->equals(Code::UNAUTHORIZED()));
+    }
+
     public function test_enumeration_supports_primitive_values(): void
     {
         $this->assertTrue(PrimitiveEnum::BOOLEAN()->equals(true));
         $this->assertTrue(PrimitiveEnum::FLOAT()->equals(2.1));
         $this->assertTrue(PrimitiveEnum::INTEGER()->equals(1));
         $this->assertTrue(PrimitiveEnum::STRING()->equals('string'));
+        $this->assertTrue(PrimitiveEnum::STRING()->equals(PrimitiveEnum::STRING()));
     }
 
     public function test_extract_the_values_of_an_enum(): void
